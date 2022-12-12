@@ -26,19 +26,20 @@ public class BankController {
 
 	@Autowired
 	BankRepository bankRepository;
+	
+	String name="abc";
+
 
 	@GetMapping("/all")
 	public List<Bank> getAllBanks() {
 		// System.out.println("jwt token"+jwt);
 		List<Bank> bankList = bankRepository.findAll();
-	    log.info("message.....");
-	    LOGGER.info("database connection....");
-	    
+		LOGGER.info("application running...");
 	    try {
-	    	
-	    	
+	    	int res=20/0;
+	    LOGGER.info("result..."+res);
 	    }catch(Exception e) {
-	    	LOGGER.error("Controller class", e.getMessage());
+	    	LOGGER.error("exception occured in application..%s",e.getMessage());
 	    }
 		return bankList;
 	}
@@ -54,9 +55,7 @@ public class BankController {
 
 	@PostMapping("/save")
 	public Bank saveBankIntoDB(@RequestBody Bank bank) {
-		// System.out.println("jwt token"+jwt);
-		Bank bankEntity = bankRepository.save(bank);
-		return bankEntity;
+		return bankRepository.save(bank);
 	}
 
 	@PutMapping("/update")
@@ -76,13 +75,13 @@ public class BankController {
 			bank1.setName(bank.getName());
 		}
 
-		Bank bankEntity = bankRepository.save(bank1);
-		return bankEntity;
+
+		return  bankRepository.save(bank1);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public String deleteBank(@PathVariable Integer id) {
-		System.out.println("id....." + id);
+		LOGGER.info("id %s ",id);
 		bankRepository.deleteById(id);
 		return "record deleted successfully";
 	}
